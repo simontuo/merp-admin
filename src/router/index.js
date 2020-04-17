@@ -94,12 +94,13 @@ export const constantRoutes = [
 	{
 		path: '/tenant',
 		component: Layout,
-		redirect: '/tenants/index',
+		redirect: '/tenant/index',
 		children: [
 			{
 				path: 'index',
 				name: 'tenant',
 				component: () => import('@/views/tenant/index'),
+				meta: { title: '租户管理', icon: 'tenant' }
 			},
 			{
 				path: 'profile',
