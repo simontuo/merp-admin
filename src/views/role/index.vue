@@ -58,7 +58,7 @@
                         </el-table-column>
                         <el-table-column fixed="right" label="操作" width="100" align="center">
                             <template slot-scope="scope">
-                                <router-link :to="{name: 'roleProfile', query: {id:scope.row.id}}">
+                                <router-link :to="{name: 'roleProfile'}">
                                     <el-button type="text" size="small">查看</el-button>
                                 </router-link>
                                 <el-button
@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import { fetchList, roleDelete } from "@/api/role";
+import { rolePageList, roleDelete } from "@/api/role";
 import Pagination from "@/components/Pagination";
 import SearchForm from "@/components/SearchForm";
 import TableOperateBar from "@/components/TableOperateBar";
@@ -107,7 +107,7 @@ export default {
     },
     computed: {
         searchFunction() {
-            return fetchList;
+            return rolePageList;
         },
         selectedIds() {
             return this.$refs.table.selectedIds();

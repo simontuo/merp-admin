@@ -58,7 +58,7 @@
 
 <script>
 import MCard from "@/components/MCard";
-import { fetchList } from "@/api/permission";
+import { permissionPageList } from "@/api/permission";
 import { roleProfile, roleUpdate } from "@/api/role";
 
 export default {
@@ -121,7 +121,7 @@ export default {
         },
         fetchPermissions() {
             this.treeLoading = true;
-            fetchList()
+            permissionPageList()
                 .then(response => {
                     this.permissions = response.data.items;
                 })
