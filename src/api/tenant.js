@@ -7,3 +7,11 @@ export function tenantUserList(params) {
         params: params
     })
 }
+
+export function tenantPageList(params) {
+    return request({
+        url: '/tenants',
+        method: 'get',
+        params: params
+    })
+}
