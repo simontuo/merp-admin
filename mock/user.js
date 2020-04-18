@@ -26,6 +26,33 @@ const users = {
 
 
 export default [
+	// user list 
+	{
+		url: '/users/list',
+		type: 'get',
+		response: config => {
+
+			const list = Mock.mock({
+				'items|10': [
+					{
+						"id|+1": 1,
+						name: '@cname',
+						phone: /\d{11,11}/,
+						email: '@email',
+						created_at: '@datetime',
+					}
+				]
+			});
+
+			return {
+				code: 20000,
+				data: {
+					items: list.items
+				}
+			}
+		}
+	},
+
 	// user login
 	{
 		url: '/vue-admin-template/user/login',
@@ -101,31 +128,6 @@ export default [
 			return {
 				code: 20000,
 				data: 'success'
-			}
-		}
-	},
-
-	// user list 
-	{
-		url: '/users/list',
-		type: 'get',
-		response: config => {
-
-			const list = Mock.mock({
-				'items|10': [
-					{
-						label: '@cname',
-						"key|+1": 1,
-						pinyin: '@name',
-					}
-				]
-			});
-
-			return {
-				code: 20000,
-				data: {
-					items: list.items
-				}
 			}
 		}
 	},
