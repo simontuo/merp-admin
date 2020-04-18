@@ -96,6 +96,7 @@
                 <pagination />
             </div>
         </m-card>
+        <create-drawer ref="createDrawer"></create-drawer>
     </div>
 </template>
 
@@ -106,6 +107,7 @@ import TableSelectedBar from "@/components/TableSelectedBar";
 import MTable from "@/components/MTable";
 import SearchForm from "@/components/SearchForm";
 import MCard from "@/components/MCard";
+import CreateDrawer from "./components/CreateDrawer";
 import { tenantPageList } from "@/api/tenant";
 
 export default {
@@ -115,7 +117,8 @@ export default {
         TableSelectedBar,
         MTable,
         SearchForm,
-        MCard
+        MCard,
+        CreateDrawer
     },
     data() {
         return {
@@ -135,7 +138,9 @@ export default {
         }
     },
     methods: {
-        create() {},
+        create() {
+            this.$refs.createDrawer.show("租户新增");
+        },
         ban() {
             if (this.selectedIds.length < 1) {
                 this.$message({
