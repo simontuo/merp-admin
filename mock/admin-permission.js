@@ -10,7 +10,7 @@ const data = Mock.mock({
 
 export default [
 	{
-		url: '/permissions/list',
+		url: '/admin_permissions/list',
 		type: 'get',
 		response: config => {
 
@@ -41,7 +41,7 @@ export default [
 	},
 
 	{
-		url: '/permissions',
+		url: '/admin_permissions',
 		type: 'get',
 		response: config => {
 

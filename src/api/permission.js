@@ -6,4 +6,12 @@ export function permissionPageList(params) {
 		method: 'get',
 		params: params
 	})
+}
+
+export function permissionList(params) {
+	return request({
+		url: '/permissions/list',
+		method: 'get',
+		params: params
+	})
 } 

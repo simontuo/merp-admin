@@ -58,8 +58,8 @@
 
 <script>
 import MCard from "@/components/MCard";
-import { permissionList } from "@/api/permission";
-import { roleProfile, roleUpdate } from "@/api/role";
+import { adminPermissionList } from "@/api/admin-permission";
+import { adminRoleProfile, adminRoleUpdate } from "@/api/admin-role";
 
 export default {
     components: {
@@ -97,7 +97,7 @@ export default {
             this.$router.push({ name: "role" });
         },
         onSubmit() {
-            roleUpdate(this.form)
+            adminRoleUpdate(this.form)
                 .then(response => {
                     this.$message.success(response.message);
                 })
@@ -111,7 +111,7 @@ export default {
         },
         fetchRole() {
             this.roleLoading = true;
-            roleProfile({ id: this.$route.query.id })
+            adminRoleProfile({ id: this.$route.query.id })
                 .then(response => {
                     this.form = response.data;
                 })
@@ -121,7 +121,7 @@ export default {
         },
         fetchPermissions() {
             this.treeLoading = true;
-            permissionList()
+            adminPermissionList()
                 .then(response => {
                     this.permissions = response.data.items;
                 })

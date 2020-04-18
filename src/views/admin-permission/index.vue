@@ -98,7 +98,7 @@ import TableSelectedBar from "@/components/TableSelectedBar";
 import MTable from "@/components/MTable";
 import SearchForm from "@/components/SearchForm";
 import MCard from "@/components/MCard";
-import { permissionPageList } from "@/api/permission";
+import { adminPermissionPageList } from "@/api/admin-permission";
 
 export default {
     components: {
@@ -116,7 +116,7 @@ export default {
     },
     computed: {
         searchFunction() {
-            return permissionPageList;
+            return adminPermissionPageList;
         },
         selectedIds() {
             return this.$refs.table.selectedIds();

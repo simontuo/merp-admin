@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import { rolePageList, roleDelete } from "@/api/role";
+import { adminRolePageList, adminRoleDelete } from "@/api/admin-role";
 import Pagination from "@/components/Pagination";
 import SearchForm from "@/components/SearchForm";
 import TableOperateBar from "@/components/TableOperateBar";
@@ -107,7 +107,7 @@ export default {
     },
     computed: {
         searchFunction() {
-            return rolePageList;
+            return adminRolePageList;
         },
         selectedIds() {
             return this.$refs.table.selectedIds();
@@ -126,7 +126,7 @@ export default {
                 });
                 return false;
             }
-            roleDelete(this.selectedIds).then(response => {
+            adminRoleDelete(this.selectedIds).then(response => {
                 this.$message({
                     message: response.message,
                     type: "success"

@@ -122,13 +122,13 @@ export const constantRoutes = [
 				path: 'permission/index',
 				name: 'permission',
 				component: () => import('@/views/permission/index'),
-				meta: { title: '前台权限管理' },
+				meta: { title: '前台权限' },
 			},
 			{
 				path: 'role/index',
 				name: 'role',
 				component: () => import('@/views/role/index'),
-				meta: { title: '前台角色管理' }
+				meta: { title: '前台角色' }
 			},
 			{
 				path: 'role/create',
@@ -143,6 +143,18 @@ export const constantRoutes = [
 				component: () => import('@/views/role/profile/index'),
 				meta: { title: '前台角色详情' },
 				hidden: true
+			},
+			{
+				path: 'admin_permission/index',
+				name: 'adminPermission',
+				component: () => import('@/views/admin-permission/index'),
+				meta: { title: '后台权限' },
+			},
+			{
+				path: 'admin_role/index',
+				name: 'adminRole',
+				component: () => import('@/views/admin-role/index'),
+				meta: { title: '后台角色' }
 			}
 		]
 	},

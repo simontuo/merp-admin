@@ -4,9 +4,11 @@ import { param2Obj } from '../src/utils'
 import user from './user'
 import department from './department'
 import role from './role'
+import adminRole from './admin-role'
 import order from './order'
 import invoice from './invoice'
 import permission from './permission'
+import adminPermission from './admin-permission'
 import tenant from './tenant'
 import dictionary from './dictionary'
 import search from './remote-search'
@@ -21,6 +23,8 @@ const mocks = [
 	...tenant,
 	...dictionary,
 	...search,
+	...adminPermission,
+	...adminRole,
 ]
 
 // for front mock

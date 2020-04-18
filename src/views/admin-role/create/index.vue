@@ -2,31 +2,25 @@
     <div class="app-container">
         <m-card>
             <template slot="body">
-                <el-page-header @back="goBack" content="角色详情"></el-page-header>
+                <el-page-header @back="goBack" content="角色新增"></el-page-header>
             </template>
         </m-card>
         <el-row :gutter="20" class="mt-1">
             <el-col :span="12">
                 <m-card>
                     <template slot="body">
-                        <el-form
-                            ref="form"
-                            :model="form"
-                            label-width="80px"
-                            size="small"
-                            v-loading="roleLoading"
-                        >
+                        <el-form ref="form" :model="form" label-width="80px" size="small">
                             <el-form-item label="名称">
                                 <el-input v-model="form.name"></el-input>
                             </el-form-item>
                             <el-form-item label="显示名称">
-                                <el-input v-model="form.label"></el-input>
+                                <el-input v-model="form.display_name"></el-input>
                             </el-form-item>
                             <el-form-item label="描述">
                                 <el-input type="textarea" v-model="form.desc"></el-input>
                             </el-form-item>
                             <el-form-item>
-                                <el-button type="primary" @click="onSubmit">保存</el-button>
+                                <el-button type="primary" @click="onSubmit">立即创建</el-button>
                             </el-form-item>
                         </el-form>
                     </template>
@@ -41,13 +35,11 @@
                             v-loading="treeLoading"
                             class="mt-1"
                             show-checkbox
-                            default-expand-all
-                            ref="tree"
-                            node-key="id"
                             :data="permissions"
-                            :default-checked-keys="form.permissionIds"
                             :props="defaultProps"
+                            default-expand-all
                             :filter-node-method="filterNode"
+                            ref="tree"
                         ></el-tree>
                     </template>
                 </m-card>
@@ -58,8 +50,8 @@
 
 <script>
 import MCard from "@/components/MCard";
-import { permissionList } from "@/api/permission";
-import { roleProfile, roleUpdate } from "@/api/role";
+import { permissionPageList } from "@/api/permission";
+import { adminRoleStore } from "@/api/admin-role";
 
 export default {
     components: {
@@ -67,12 +59,10 @@ export default {
     },
     data() {
         return {
-            roleLoading: false,
             form: {
                 name: "",
                 label: "",
-                desc: "",
-                permissionIds: []
+                desc: ""
             },
             treeLoading: false,
             filterText: "",
@@ -83,9 +73,15 @@ export default {
             }
         };
     },
-    mounted() {
-        this.fetchRole();
-        this.fetchPermissions();
+    created() {
+        this.treeLoading = true;
+        permissionPageList()
+            .then(response => {
+                this.permissions = response.data.items;
+            })
+            .finally(() => {
+                this.treeLoading = false;
+            });
     },
     watch: {
         filterText(val) {
@@ -97,9 +93,10 @@ export default {
             this.$router.push({ name: "role" });
         },
         onSubmit() {
-            roleUpdate(this.form)
+            adminRoleStore(this.form)
                 .then(response => {
                     this.$message.success(response.message);
+                    this.$router.push({ name: "role" });
                 })
                 .catch(response => {
                     this.$message.error(response.message);
@@ -108,26 +105,6 @@ export default {
         filterNode(value, data) {
             if (!value) return true;
             return data.label.indexOf(value) !== -1;
-        },
-        fetchRole() {
-            this.roleLoading = true;
-            roleProfile({ id: this.$route.query.id })
-                .then(response => {
-                    this.form = response.data;
-                })
-                .finally(() => {
-                    this.roleLoading = false;
-                });
-        },
-        fetchPermissions() {
-            this.treeLoading = true;
-            permissionList()
-                .then(response => {
-                    this.permissions = response.data.items;
-                })
-                .finally(() => {
-                    this.treeLoading = false;
-                });
         }
     }
 };

@@ -2,7 +2,7 @@ import Mock, { Random } from 'mockjs'
 
 export default [
 	{
-		url: '/roles/[0-9]*',
+		url: '/admin_roles/[0-9]*',
 		type: 'get',
 		response: config => {
 			const { id } = config.query
@@ -26,7 +26,7 @@ export default [
 	},
 
 	{
-		url: '/roles/[0-9]*',
+		url: '/admin_roles/[0-9]*',
 		type: 'put',
 		response: config => {
 			return {
@@ -37,7 +37,7 @@ export default [
 	},
 
 	{
-		url: '/roles/[0-9]*/bind',
+		url: '/admin_roles/[0-9]*/bind',
 		type: 'put',
 		response: config => {
 			return {
@@ -48,7 +48,7 @@ export default [
 	},
 
 	{
-		url: '/roles/delete',
+		url: '/admin_roles/delete',
 		type: 'delete',
 		response: config => {
 			return {
@@ -60,7 +60,7 @@ export default [
 	},
 
 	{
-		url: '/roles',
+		url: '/admin_roles',
 		type: 'post',
 		response: config => {
 			return {
@@ -72,7 +72,7 @@ export default [
 	},
 
 	{
-		url: '/roles',
+		url: '/admin_roles',
 		type: 'get',
 		response: config => {
 			const { query, page = 1, pageSize = 20 } = config.query
