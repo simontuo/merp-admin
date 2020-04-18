@@ -23,3 +23,19 @@ export function tenantStore(params) {
 		params: params
 	})
 }
+
+export function tenantProfile(params) {
+	return request({
+		url: '/tenants/' + params.id,
+		method: 'get',
+		params: params
+	})
+}
+
+export function tenantUpdate(params) {
+	return request({
+		url: '/tenants/' + params.id,
+		method: 'put',
+		params: params
+	})
+}

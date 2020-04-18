@@ -29,6 +29,46 @@ export default [
 	},
 
 	{
+		url: '/tenants/[0-9]*',
+		type: 'get',
+		response: config => {
+			const { id } = config.query
+
+			let data = {
+				id: id,
+				name: '大力加冰',
+				mnemonic_code: 'DLJB',
+				contact: '@cname',
+				contact_phone: /\d{11,11}/,
+				contact_address: '@county(true)',
+				created_at: '@datetime',
+				size: 100,
+				mamger_user_id: 1,
+				enable: true,
+				contract_start_at: '@date',
+				contract_end_at: '@date'
+			};
+
+			return {
+				code: 20000,
+				data: data
+			}
+
+		}
+	},
+
+	{
+		url: '/tenants/[0-9]*',
+		type: 'put',
+		response: _ => {
+			return {
+				code: 20000,
+				message: '保存成功'
+			}
+		}
+	},
+
+	{
 		url: '/tenants',
 		type: 'post',
 		response: config => {

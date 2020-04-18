@@ -85,7 +85,7 @@
                         <el-table-column fixed="right" label="操作" width="100" align="center">
                             <template slot-scope="scope">
                                 <router-link
-                                    :to="{path: '/customer/profile', query: {id:scope.row.id}}"
+                                    :to="{path: '/tenant/profile', query: {id:scope.row.id}}"
                                 >
                                     <el-button type="text" size="small">查看</el-button>
                                 </router-link>
