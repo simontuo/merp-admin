@@ -39,3 +39,11 @@ export function permissionUpdate(params) {
         params: params
     })
 }
+
+export function permissionBatchDelete(params) {
+    return request({
+        url: '/permissions/delete',
+        method: 'delete',
+        params: params
+    })
+}

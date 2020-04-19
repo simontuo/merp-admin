@@ -73,6 +73,18 @@ export default [
     },
 
     {
+        url: '/permissions/delete',
+        type: 'delete',
+        response: config => {
+            return {
+                code: 20000,
+                message: "删除成功"
+            }
+
+        }
+    },
+
+    {
         url: '/permissions',
         type: 'post',
         response: config => {

@@ -96,7 +96,7 @@ import TableSelectedBar from "@/components/TableSelectedBar";
 import MTable from "@/components/MTable";
 import SearchForm from "@/components/SearchForm";
 import MCard from "@/components/MCard";
-import { permissionPageList } from "@/api/permission";
+import { permissionPageList, permissionBatchDelete } from "@/api/permission";
 import CreateDrawer from "./components/CreateDrawer";
 import EditDrawer from "./components/EditDrawer";
 
@@ -132,7 +132,22 @@ export default {
             this.$refs.editDrawer.id = id;
             this.$refs.editDrawer.show("权限详情");
         },
-        deleteRow() {}
+        deleteRow() {
+            if (this.selectedIds.length < 1) {
+                this.$message({
+                    message: "请选择需要删除的数据",
+                    type: "warning"
+                });
+                return false;
+            }
+            permissionBatchDelete(this.selectedIds).then(response => {
+                this.$message({
+                    message: response.message,
+                    type: "success"
+                });
+                bus.$emit("search");
+            });
+        }
     }
 };
 </script>
