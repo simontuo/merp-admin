@@ -76,11 +76,7 @@
                         </el-table-column>
                         <el-table-column fixed="right" label="操作" width="100" align="center">
                             <template slot-scope="scope">
-                                <router-link
-                                    :to="{path: '/customer/profile', query: {id:scope.row.id}}"
-                                >
-                                    <el-button type="text" size="small">查看</el-button>
-                                </router-link>
+                                <el-button type="text" size="small" @click="edit(scope.row.id)">查看</el-button>
                             </template>
                         </el-table-column>
                     </template>
@@ -88,6 +84,8 @@
                 <pagination />
             </div>
         </m-card>
+        <create-drawer ref="createDrawer"></create-drawer>
+        <edit-drawer ref="editDrawer"></edit-drawer>
     </div>
 </template>
 
@@ -99,6 +97,8 @@ import MTable from "@/components/MTable";
 import SearchForm from "@/components/SearchForm";
 import MCard from "@/components/MCard";
 import { permissionPageList } from "@/api/permission";
+import CreateDrawer from "./components/CreateDrawer";
+import EditDrawer from "./components/EditDrawer";
 
 export default {
     components: {
@@ -107,7 +107,9 @@ export default {
         TableSelectedBar,
         MTable,
         SearchForm,
-        MCard
+        MCard,
+        CreateDrawer,
+        EditDrawer
     },
     data() {
         return {
@@ -123,7 +125,13 @@ export default {
         }
     },
     methods: {
-        create() {},
+        create() {
+            this.$refs.createDrawer.show("权限新增");
+        },
+        edit(id) {
+            this.$refs.editDrawer.id = id;
+            this.$refs.editDrawer.show("权限详情");
+        },
         deleteRow() {}
     }
 };

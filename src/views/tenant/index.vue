@@ -49,7 +49,6 @@
                 <table-operate-bar title="客户数据">
                     <template slot="functionButton">
                         <el-button size="small" @click="create">新增</el-button>
-                        <el-button size="small" type="warning" @click="ban">禁用</el-button>
                     </template>
                 </table-operate-bar>
                 <table-selected-bar />
@@ -140,15 +139,6 @@ export default {
     methods: {
         create() {
             this.$refs.createDrawer.show("租户新增");
-        },
-        ban() {
-            if (this.selectedIds.length < 1) {
-                this.$message({
-                    message: "请选择需要禁用的数据",
-                    type: "warning"
-                });
-                return false;
-            }
         }
     }
 };
