@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function adminRolePageList(params) {
 	return request({
-		url: '/roles',
+		url: '/admin_roles',
 		method: 'get',
 		params: params
 	})
@@ -44,6 +44,14 @@ export function adminRoleBind(params) {
 	return request({
 		url: '/admin_roles/' + params.id + '/bind',
 		method: 'put',
+		params: params
+	})
+}
+
+export function adminRoleBatchDelete(params) {
+	return request({
+		url: '/admin_roles/delete',
+		method: 'delete',
 		params: params
 	})
 }

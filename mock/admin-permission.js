@@ -41,6 +41,62 @@ export default [
 	},
 
 	{
+		url: '/admin_permissions/[0-9]*',
+		type: 'get',
+		response: config => {
+			const { id } = config.query
+
+			let data = {
+				id: id,
+				name: '@name',
+				label: '@cname',
+				desc: "@cword"
+			}
+
+			return {
+				code: 20000,
+				data: data
+			}
+		}
+	},
+
+	{
+		url: '/admin_permissions/[0-9]*',
+		type: 'put',
+		response: config => {
+			return {
+				code: 20000,
+				message: "保存成功"
+			}
+
+		}
+	},
+
+	{
+		url: '/admin_permissions/delete',
+		type: 'delete',
+		response: config => {
+			return {
+				code: 20000,
+				message: "删除成功"
+			}
+
+		}
+	},
+
+	{
+		url: '/admin_permissions',
+		type: 'post',
+		response: config => {
+			return {
+				code: 20000,
+				message: "新增成功"
+			}
+
+		}
+	},
+
+	{
 		url: '/admin_permissions',
 		type: 'get',
 		response: config => {
