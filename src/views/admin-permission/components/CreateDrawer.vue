@@ -2,7 +2,7 @@
     <m-drawer ref="drawer">
         <template slot="content">
             <m-drawer-body v-loading="loading">
-                <div slot="body" class="body">
+                <div class="mt-2" slot="body">
                     <el-form
                         ref="form"
                         :model="form"
@@ -13,11 +13,11 @@
                         <el-form-item label="名称" required>
                             <el-input v-model="form.name"></el-input>
                         </el-form-item>
-                        <el-form-item label="手机" required>
-                            <el-input v-model="form.phone"></el-input>
+                        <el-form-item label="标签" required>
+                            <el-input v-model="form.label"></el-input>
                         </el-form-item>
-                        <el-form-item label="邮箱">
-                            <el-input v-model="form.email"></el-input>
+                        <el-form-item label="描述" required>
+                            <el-input type="textarea" v-model="form.desc"></el-input>
                         </el-form-item>
                     </el-form>
                 </div>
@@ -25,7 +25,7 @@
             <m-drawer-footer>
                 <template slot="operate-button">
                     <el-button size="small">重置</el-button>
-                    <el-button size="small" type="primary" @click="submit">保存</el-button>
+                    <el-button size="small" type="primary" @click="submit" :disabled="loading">保存</el-button>
                 </template>
             </m-drawer-footer>
         </template>
@@ -36,7 +36,7 @@
 import MDrawer from "@/components/MDrawer";
 import MDrawerFooter from "@/components/MDrawer/components/MDrawerFooter";
 import MDrawerBody from "@/components/MDrawer/components/MDrawerBody";
-import { userProfile, userUpdate } from "@/api/user";
+import { adminPermissionStore } from "@/api/admin-permission";
 
 export default {
     components: {
@@ -47,12 +47,11 @@ export default {
     data() {
         return {
             loading: false,
-            id: "",
+            users: [],
             form: {
-                id: "",
                 name: "",
-                phone: "",
-                email: ""
+                label: "",
+                desc: ""
             }
         };
     },
@@ -60,22 +59,14 @@ export default {
         show(title) {
             this.$refs.drawer.title = title;
             this.$refs.drawer.show();
-            userProfile({ id: this.id })
-                .then(response => {
-                    this.form = response.data;
-                })
-                .finally(() => {
-                    this.loading = false;
-                });
         },
         submit() {
             this.loading = true;
-            userUpdate(this.form)
+            adminPermissionStore(this.form)
                 .then(response => {
                     this.$message.success(response.message);
-                })
-                .catch(error => {
-                    this.$message.success(error.message);
+                    this.$refs.drawer.close();
+                    bus.$emit("search");
                 })
                 .finally(() => {
                     this.loading = false;
@@ -86,7 +77,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.body {
-    padding: 10px;
-}
 </style>

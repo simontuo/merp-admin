@@ -155,6 +155,20 @@ export const constantRoutes = [
 				name: 'adminRole',
 				component: () => import('@/views/admin-role/index'),
 				meta: { title: '后台角色' }
+			},
+			{
+				path: 'admin_role/create',
+				name: 'adminRoleCreate',
+				component: () => import('@/views/admin-role/create/index'),
+				meta: { title: '前台角色新增' },
+				hidden: true
+			},
+			{
+				path: 'admin_role/profile',
+				name: 'adminRoleProfile',
+				component: () => import('@/views/admin-role/profile/index'),
+				meta: { title: '后台角色详情' },
+				hidden: true
 			}
 		]
 	},

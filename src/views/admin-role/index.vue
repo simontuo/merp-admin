@@ -22,9 +22,9 @@
         </m-card>
         <m-card class="mt-2">
             <div slot="body" ref="tableData">
-                <table-operate-bar title="角色数据">
+                <table-operate-bar title="后台角色数据">
                     <template slot="functionButton">
-                        <router-link :to="{name: 'roleCreate'}">
+                        <router-link :to="{name: 'adminRoleCreate'}">
                             <el-button size="small">新增</el-button>
                         </router-link>
                         <el-button
@@ -58,7 +58,7 @@
                         </el-table-column>
                         <el-table-column fixed="right" label="操作" width="100" align="center">
                             <template slot-scope="scope">
-                                <router-link :to="{name: 'roleProfile'}">
+                                <router-link :to="{name: 'adminRoleProfile'}">
                                     <el-button type="text" size="small">查看</el-button>
                                 </router-link>
                                 <el-button
@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import { adminRolePageList, adminRoleDelete } from "@/api/admin-role";
+import { adminRolePageList, adminRoleBatchDelete } from "@/api/admin-role";
 import Pagination from "@/components/Pagination";
 import SearchForm from "@/components/SearchForm";
 import TableOperateBar from "@/components/TableOperateBar";
@@ -126,7 +126,7 @@ export default {
                 });
                 return false;
             }
-            adminRoleDelete(this.selectedIds).then(response => {
+            adminRoleBatchDelete(this.selectedIds).then(response => {
                 this.$message({
                     message: response.message,
                     type: "success"

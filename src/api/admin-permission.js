@@ -14,4 +14,36 @@ export function adminPermissionList(params) {
 		method: 'get',
 		params: params
 	})
-} 
+}
+
+export function adminPermissionStore(params) {
+	return request({
+		url: '/admin_permissions',
+		method: 'post',
+		params: params
+	})
+}
+
+export function adminPermissionProfile(params) {
+	return request({
+		url: '/admin_permissions/' + params.id,
+		method: 'get',
+		params: params
+	})
+}
+
+export function adminPermissionUpdate(params) {
+	return request({
+		url: '/admin_permissions/' + params.id,
+		method: 'put',
+		params: params
+	})
+}
+
+export function adminPermissionBatchDelete(params) {
+	return request({
+		url: '/admin_permissions/delete',
+		method: 'delete',
+		params: params
+	})
+}

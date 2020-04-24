@@ -2,7 +2,12 @@
     <div class="clearfix search-form">
         <el-row :gutter="10">
             <el-col :span="20">
-                <el-form :inline="inline" size="small" :label-width="labelWidth">
+                <el-form
+                    :inline="inline"
+                    size="small"
+                    :label-width="labelWidth"
+                    label-position="left"
+                >
                     <slot name="queryItem"></slot>
                 </el-form>
                 <el-row v-if="!hidden">

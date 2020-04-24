@@ -2,7 +2,7 @@
     <div class="app-container">
         <m-card>
             <template slot="body">
-                <el-page-header @back="goBack" content="角色详情"></el-page-header>
+                <el-page-header @back="goBack" content="前台角色详情"></el-page-header>
             </template>
         </m-card>
         <el-row :gutter="20" class="mt-1">
@@ -15,11 +15,12 @@
                             label-width="80px"
                             size="small"
                             v-loading="roleLoading"
+                            label-position="left"
                         >
-                            <el-form-item label="名称">
+                            <el-form-item label="名称" required>
                                 <el-input v-model="form.name"></el-input>
                             </el-form-item>
-                            <el-form-item label="显示名称">
+                            <el-form-item label="显示名称" required>
                                 <el-input v-model="form.label"></el-input>
                             </el-form-item>
                             <el-form-item label="描述">
@@ -36,7 +37,6 @@
                 <m-card>
                     <template slot="body">
                         <el-input placeholder="输入关键字进行过滤" v-model="filterText"></el-input>
-
                         <el-tree
                             v-loading="treeLoading"
                             class="mt-1"

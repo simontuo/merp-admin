@@ -46,7 +46,7 @@
         </m-card>
         <m-card type="table" class="mt-2">
             <div slot="body">
-                <table-operate-bar title="前台权限数据">
+                <table-operate-bar title="后台权限数据">
                     <template slot="functionButton">
                         <el-button size="small" @click="create">新增</el-button>
                         <el-button size="small" type="danger" @click="deleteRow">删除</el-button>
@@ -76,11 +76,7 @@
                         </el-table-column>
                         <el-table-column fixed="right" label="操作" width="100" align="center">
                             <template slot-scope="scope">
-                                <router-link
-                                    :to="{path: '/customer/profile', query: {id:scope.row.id}}"
-                                >
-                                    <el-button type="text" size="small">查看</el-button>
-                                </router-link>
+                                <el-button type="text" size="small" @click="edit(scope.row.id)">查看</el-button>
                             </template>
                         </el-table-column>
                     </template>
@@ -88,6 +84,8 @@
                 <pagination />
             </div>
         </m-card>
+        <create-drawer ref="createDrawer"></create-drawer>
+        <edit-drawer ref="editDrawer"></edit-drawer>
     </div>
 </template>
 
@@ -98,7 +96,12 @@ import TableSelectedBar from "@/components/TableSelectedBar";
 import MTable from "@/components/MTable";
 import SearchForm from "@/components/SearchForm";
 import MCard from "@/components/MCard";
-import { adminPermissionPageList } from "@/api/admin-permission";
+import {
+    adminPermissionPageList,
+    adminPermissionBatchDelete
+} from "@/api/admin-permission";
+import CreateDrawer from "./components/CreateDrawer";
+import EditDrawer from "./components/EditDrawer";
 
 export default {
     components: {
@@ -107,7 +110,9 @@ export default {
         TableSelectedBar,
         MTable,
         SearchForm,
-        MCard
+        MCard,
+        CreateDrawer,
+        EditDrawer
     },
     data() {
         return {
@@ -123,8 +128,29 @@ export default {
         }
     },
     methods: {
-        create() {},
-        deleteRow() {}
+        create() {
+            this.$refs.createDrawer.show("后台权限新增");
+        },
+        edit(id) {
+            this.$refs.editDrawer.id = id;
+            this.$refs.editDrawer.show("后台权限详情");
+        },
+        deleteRow() {
+            if (this.selectedIds.length < 1) {
+                this.$message({
+                    message: "请选择需要删除的数据",
+                    type: "warning"
+                });
+                return false;
+            }
+            adminPermissionBatchDelete(this.selectedIds).then(response => {
+                this.$message({
+                    message: response.message,
+                    type: "success"
+                });
+                bus.$emit("search");
+            });
+        }
     }
 };
 </script>

@@ -2,18 +2,24 @@
     <div class="app-container">
         <m-card>
             <template slot="body">
-                <el-page-header @back="goBack" content="角色新增"></el-page-header>
+                <el-page-header @back="goBack" content="前台角色新增"></el-page-header>
             </template>
         </m-card>
         <el-row :gutter="20" class="mt-1">
             <el-col :span="12">
                 <m-card>
                     <template slot="body">
-                        <el-form ref="form" :model="form" label-width="80px" size="small">
-                            <el-form-item label="名称">
+                        <el-form
+                            ref="form"
+                            :model="form"
+                            label-width="80px"
+                            size="small"
+                            label-position="left"
+                        >
+                            <el-form-item label="名称" required>
                                 <el-input v-model="form.name"></el-input>
                             </el-form-item>
-                            <el-form-item label="显示名称">
+                            <el-form-item label="显示名称" required>
                                 <el-input v-model="form.display_name"></el-input>
                             </el-form-item>
                             <el-form-item label="描述">
@@ -50,7 +56,7 @@
 
 <script>
 import MCard from "@/components/MCard";
-import { permissionPageList } from "@/api/permission";
+import { permissionList } from "@/api/permission";
 import { roleStore } from "@/api/role";
 
 export default {
@@ -75,7 +81,7 @@ export default {
     },
     created() {
         this.treeLoading = true;
-        permissionPageList()
+        permissionList()
             .then(response => {
                 this.permissions = response.data.items;
             })

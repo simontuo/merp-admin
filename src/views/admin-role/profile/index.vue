@@ -2,7 +2,7 @@
     <div class="app-container">
         <m-card>
             <template slot="body">
-                <el-page-header @back="goBack" content="角色详情"></el-page-header>
+                <el-page-header @back="goBack" content="后台角色详情"></el-page-header>
             </template>
         </m-card>
         <el-row :gutter="20" class="mt-1">
@@ -15,11 +15,12 @@
                             label-width="80px"
                             size="small"
                             v-loading="roleLoading"
+                            label-position="left"
                         >
-                            <el-form-item label="名称">
+                            <el-form-item label="名称" required>
                                 <el-input v-model="form.name"></el-input>
                             </el-form-item>
-                            <el-form-item label="显示名称">
+                            <el-form-item label="显示名称" required>
                                 <el-input v-model="form.label"></el-input>
                             </el-form-item>
                             <el-form-item label="描述">
@@ -94,7 +95,7 @@ export default {
     },
     methods: {
         goBack() {
-            this.$router.push({ name: "role" });
+            this.$router.push({ name: "adminRole" });
         },
         onSubmit() {
             adminRoleUpdate(this.form)
