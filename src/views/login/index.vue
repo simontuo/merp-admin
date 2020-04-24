@@ -96,6 +96,7 @@
 <script>
 import { phone } from "@/utils/validate";
 import VerifyCodeButton from "@/components/VerifyCodeButton";
+import { login } from "@/api/user";
 
 export default {
     name: "Login",
@@ -177,7 +178,14 @@ export default {
                     return false;
                 }
 
-                this.loading = true;
+                // this.loading = true;
+                // login(this.form)
+                //     .then(response => {
+                //         console.log(response);
+                //     })
+                //     .finally(() => {
+                //         this.loading = false;
+                //     });
                 this.$store
                     .dispatch("user/login", this.loginForm)
                     .then(() => {
