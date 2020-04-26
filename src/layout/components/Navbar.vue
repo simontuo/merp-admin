@@ -9,9 +9,7 @@
         <breadcrumb class="breadcrumb-container" />
 
         <div class="right-menu">
-            <template>
-                <div class="right-menu-item">大力出奇迹有限公司</div>
-            </template>
+            <template></template>
 
             <el-dropdown class="avatar-container" trigger="click">
                 <div class="avatar-wrapper">

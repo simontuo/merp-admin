@@ -33,7 +33,7 @@
                                 auto-complete="on"
                             />
                         </el-form-item>
-                        <template v-if="form.verify_type === 'password'">
+                        <template v-if="form.verifyType === 'password'">
                             <el-form-item prop="password">
                                 <span class="svg-container">
                                     <svg-icon icon-class="password" />
@@ -57,15 +57,15 @@
                             </el-form-item>
                         </template>
                         <template v-else>
-                            <el-form-item prop="verify_code">
+                            <el-form-item prop="verifyCode">
                                 <span class="svg-container">
                                     <svg-icon icon-class="verify-code" />
                                 </span>
                                 <el-input
                                     ref="password"
-                                    v-model="form.verify_code"
+                                    v-model="form.verifyCode"
                                     placeholder="验证码"
-                                    name="verify_code"
+                                    name="verifyCode"
                                     tabindex="2"
                                     auto-complete="on"
                                     @keyup.enter.native="handleLogin"
@@ -84,7 +84,7 @@
                             :loading="loading"
                             type="primary"
                             style="width:100%;margin-bottom:30px;"
-                            @click.native.prevent="handleLogin"
+                            @click.native.prevent="login"
                         >登录</el-button>
                     </el-form>
                 </el-col>
@@ -110,12 +110,11 @@ export default {
             }
         };
         return {
-            // verifyType: "password",
             verifyTypeText: "验证码登陆",
             form: {
                 phone: "",
                 password: "",
-                verify_type: "password"
+                verifyType: "password"
             },
             loginRules: {
                 phone: [
@@ -135,7 +134,7 @@ export default {
                         trigger: "blur"
                     }
                 ],
-                verify_code: [
+                verifyCode: [
                     {
                         required: true,
                         message: "验证码不能空",
@@ -170,7 +169,7 @@ export default {
                 this.$refs.password.focus();
             });
         },
-        handleLogin() {
+        login() {
             // todo
             // 发送验证用户身份请求，返回token和对应的租户列表
             this.$refs.loginForm.validate(valid => {
@@ -187,7 +186,7 @@ export default {
                 //         this.loading = false;
                 //     });
                 this.$store
-                    .dispatch("user/login", this.loginForm)
+                    .dispatch("user/login", this.form)
                     .then(() => {
                         this.$router.push({ path: this.redirect || "/" });
                         this.loading = false;
@@ -198,11 +197,11 @@ export default {
             });
         },
         swtichVerifyType() {
-            if (this.form.verify_type == "password") {
-                this.form.verify_type = "verify_code";
+            if (this.form.verifyType == "password") {
+                this.form.verifyType = "verifyCode";
                 this.verifyTypeText = "密码登录";
             } else {
-                this.form.verify_type = "password";
+                this.form.verifyType = "password";
                 this.verifyTypeText = "验证码登录";
             }
         },
