@@ -31,7 +31,11 @@
                     <div slot="body">
                         <table-operate-bar title="用户数据">
                             <template slot="functionButton">
-                                <el-button size="small" type="primary" @click="create">新增</el-button>
+                                <el-button
+                                    size="small"
+                                    @click="create"
+                                    v-if="checkPermission(['admin'])"
+                                >新增</el-button>
                                 <el-button size="small" type="warning" @click="ban">禁用</el-button>
                             </template>
                         </table-operate-bar>
@@ -113,6 +117,7 @@ import DepartmemtTree from "./components/DeaprtmemtTree";
 import { userPageList, useuserBan, userBan } from "@/api/user";
 import CreateDrawer from "./components/CreateDrawer";
 import EditDrawer from "./components/EditDrawer";
+import checkPermission from "@/utils/permission";
 
 export default {
     components: {
@@ -175,7 +180,8 @@ export default {
                 });
                 bus.$emit("search");
             });
-        }
+        },
+        checkPermission
     }
 };
 </script>

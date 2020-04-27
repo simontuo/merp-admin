@@ -31,192 +31,194 @@ import Layout from '@/layout'
  * all roles can be accessed
  */
 export const constantRoutes = [
-	{
-		path: '/login',
-		component: () => import('@/views/login/index'),
-		hidden: true
-	},
+    {
+        path: '/login',
+        component: () => import('@/views/login/index'),
+        hidden: true
+    },
 
-	{
-		path: '/forget_password',
-		name: 'forgetPassword',
-		component: () => import('@/views/forget-password/index'),
-		hidden: true
-	},
+    {
+        path: '/forget_password',
+        name: 'forgetPassword',
+        component: () => import('@/views/forget-password/index'),
+        hidden: true
+    },
 
-	{
-		path: '/404',
-		component: () => import('@/views/error/404'),
-		hidden: true
-	},
+    {
+        path: '/404',
+        component: () => import('@/views/error/404'),
+        hidden: true
+    },
 
-	{
-		path: '/',
-		component: Layout,
-		redirect: 'dashboard',
-	},
+    {
+        path: '/',
+        component: Layout,
+        redirect: '/dashboard',
+    },
 
-	{
-		path: '/dashboard',
-		component: Layout,
-		redirect: '/dashboard/index',
-		children: [
-			{
-				path: 'index',
-				name: 'dashboard',
-				component: () => import('@/views/dashboard/index'),
-				meta: { title: '数据概览', icon: 'dashboard', affix: true }
-			}
-		]
-	},
+    {
+        path: '/dashboard',
+        component: Layout,
+        redirect: '/dashboard/index',
+        children: [
+            {
+                path: 'index',
+                name: 'dashboard',
+                component: () => import('@/views/dashboard/index'),
+                meta: { title: '数据概览', icon: 'dashboard', affix: true }
+            }
+        ]
+    }
+]
 
-	{
-		path: '/user',
-		component: Layout,
-		redirect: '/user/index',
-		children: [
-			{
-				path: 'index',
-				name: 'user',
-				component: () => import('@/views/user/index'),
-				meta: { title: '用户管理', icon: 'user' },
-			},
-			{
-				path: 'profile',
-				name: 'profile',
-				component: () => import('@/views/profile/index'),
-				meta: { title: '个人中心' },
-				hidden: true,
-			}
-		]
-	},
+export const asyncRoutes = [
+    {
+        path: '/user',
+        component: Layout,
+        redirect: '/user/index',
+        children: [
+            {
+                path: 'index',
+                name: 'user',
+                component: () => import('@/views/user/index'),
+                meta: { title: '用户管理', icon: 'user', roles: ['admin'] },
+            },
+            {
+                path: 'profile',
+                name: 'profile',
+                component: () => import('@/views/profile/index'),
+                meta: { title: '个人中心' },
+                hidden: true,
+            }
+        ]
+    },
 
-	{
-		path: '/tenant',
-		component: Layout,
-		redirect: '/tenant/index',
-		children: [
-			{
-				path: 'index',
-				name: 'tenant',
-				component: () => import('@/views/tenant/index'),
-				meta: { title: '租户管理', icon: 'tenant' }
-			},
-			{
-				path: 'profile',
-				name: 'tenantProfile',
-				hidden: true,
-				component: () => import('@/views/tenant/profile/index'),
-				meta: { title: '租户详情' }
-			}
-		]
-	},
+    {
+        path: '/tenant',
+        component: Layout,
+        redirect: '/tenant/index',
+        children: [
+            {
+                path: 'index',
+                name: 'tenant',
+                component: () => import('@/views/tenant/index'),
+                meta: { title: '租户管理', icon: 'tenant', roles: ['admin'] }
+            },
+            {
+                path: 'profile',
+                name: 'tenantProfile',
+                hidden: true,
+                component: () => import('@/views/tenant/profile/index'),
+                meta: { title: '租户详情', roles: ['admin'] }
+            }
+        ]
+    },
 
-	{
-		path: '/verify',
-		component: Layout,
-		redirect: '/verify/permission/index',
-		meta: { title: '权限管理', icon: 'verify-code' },
-		children: [
-			{
-				path: 'permission/index',
-				name: 'permission',
-				component: () => import('@/views/permission/index'),
-				meta: { title: '前台权限' },
-			},
-			{
-				path: 'role/index',
-				name: 'role',
-				component: () => import('@/views/role/index'),
-				meta: { title: '前台角色' }
-			},
-			{
-				path: 'role/create',
-				name: 'roleCreate',
-				component: () => import('@/views/role/create/index'),
-				meta: { title: '前台角色新增' },
-				hidden: true
-			},
-			{
-				path: 'role/profile',
-				name: 'roleProfile',
-				component: () => import('@/views/role/profile/index'),
-				meta: { title: '前台角色详情' },
-				hidden: true
-			},
-			{
-				path: 'admin_permission/index',
-				name: 'adminPermission',
-				component: () => import('@/views/admin-permission/index'),
-				meta: { title: '后台权限' },
-			},
-			{
-				path: 'admin_role/index',
-				name: 'adminRole',
-				component: () => import('@/views/admin-role/index'),
-				meta: { title: '后台角色' }
-			},
-			{
-				path: 'admin_role/create',
-				name: 'adminRoleCreate',
-				component: () => import('@/views/admin-role/create/index'),
-				meta: { title: '前台角色新增' },
-				hidden: true
-			},
-			{
-				path: 'admin_role/profile',
-				name: 'adminRoleProfile',
-				component: () => import('@/views/admin-role/profile/index'),
-				meta: { title: '后台角色详情' },
-				hidden: true
-			}
-		]
-	},
+    {
+        path: '/verify',
+        component: Layout,
+        redirect: '/verify/permission/index',
+        meta: { title: '权限管理', icon: 'verify-code', roles: ['admin'] },
+        children: [
+            {
+                path: 'permission/index',
+                name: 'permission',
+                component: () => import('@/views/permission/index'),
+                meta: { title: '前台权限', roles: ['admin'] },
+            },
+            {
+                path: 'role/index',
+                name: 'role',
+                component: () => import('@/views/role/index'),
+                meta: { title: '前台角色', roles: ['admin'] }
+            },
+            {
+                path: 'role/create',
+                name: 'roleCreate',
+                component: () => import('@/views/role/create/index'),
+                meta: { title: '前台角色新增', roles: ['admin'] },
+                hidden: true
+            },
+            {
+                path: 'role/profile',
+                name: 'roleProfile',
+                component: () => import('@/views/role/profile/index'),
+                meta: { title: '前台角色详情', roles: ['admin'] },
+                hidden: true
+            },
+            {
+                path: 'admin_permission/index',
+                name: 'adminPermission',
+                component: () => import('@/views/admin-permission/index'),
+                meta: { title: '后台权限', roles: ['admin'] },
+            },
+            {
+                path: 'admin_role/index',
+                name: 'adminRole',
+                component: () => import('@/views/admin-role/index'),
+                meta: { title: '后台角色', roles: ['admin'] }
+            },
+            {
+                path: 'admin_role/create',
+                name: 'adminRoleCreate',
+                component: () => import('@/views/admin-role/create/index'),
+                meta: { title: '前台角色新增', roles: ['admin'] },
+                hidden: true
+            },
+            {
+                path: 'admin_role/profile',
+                name: 'adminRoleProfile',
+                component: () => import('@/views/admin-role/profile/index'),
+                meta: { title: '后台角色详情', roles: ['admin'] },
+                hidden: true
+            }
+        ]
+    },
 
-	{
-		path: '/service',
-		component: Layout,
-		redirect: '/service/index',
-		children: [
-			{
-				path: 'index',
-				name: 'service',
-				component: () => import('@/views/service/index'),
-				meta: { title: '服务管理', icon: 'service' },
-			}
-		]
-	},
+    {
+        path: '/service',
+        component: Layout,
+        redirect: '/service/index',
+        children: [
+            {
+                path: 'index',
+                name: 'service',
+                component: () => import('@/views/service/index'),
+                meta: { title: '服务管理', icon: 'service', roles: ['admin'] },
+            }
+        ]
+    },
 
-	{
-		path: '/statistics',
-		component: Layout,
-		redirect: '/statistics/index',
-		children: [
-			{
-				path: 'index',
-				name: 'statistics',
-				component: () => import('@/views/statistics/index'),
-				meta: { title: '数据统计', icon: 'statistics' }
-			}
-		]
-	},
+    {
+        path: '/statistics',
+        component: Layout,
+        redirect: '/statistics/index',
+        children: [
+            {
+                path: 'index',
+                name: 'statistics',
+                component: () => import('@/views/statistics/index'),
+                meta: { title: '数据统计', icon: 'statistics', roles: ['admin'] }
+            }
+        ]
+    },
 
-	// 404 page must be placed at the end !!!
-	{ path: '*', redirect: '/404', hidden: true }
+    // 404 page must be placed at the end !!!
+    { path: '*', redirect: '/404', hidden: true }
 ]
 
 const createRouter = () => new Router({
-	// mode: 'history', // require service support
-	scrollBehavior: () => ({ y: 0 }),
-	routes: constantRoutes
+    // mode: 'history', // require service support
+    scrollBehavior: () => ({ y: 0 }),
+    routes: constantRoutes
 })
 
 const router = createRouter()
 
 // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
 export function resetRouter() {
-	const newRouter = createRouter()
-	router.matcher = newRouter.matcher // reset router
+    const newRouter = createRouter()
+    router.matcher = newRouter.matcher // reset router
 }
 
 export default router

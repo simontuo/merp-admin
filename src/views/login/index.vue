@@ -176,15 +176,7 @@ export default {
                 if (!valid) {
                     return false;
                 }
-
-                // this.loading = true;
-                // login(this.form)
-                //     .then(response => {
-                //         console.log(response);
-                //     })
-                //     .finally(() => {
-                //         this.loading = false;
-                //     });
+                this.loading = true;
                 this.$store
                     .dispatch("user/login", this.form)
                     .then(() => {
