@@ -71,7 +71,11 @@
                                     @keyup.enter.native="handleLogin"
                                 />
                                 <span class="show-pwd">
-                                    <verify-code-button type="text" :phone="form.phone"></verify-code-button>
+                                    <verify-code-button
+                                        type="text"
+                                        :phone="form.phone"
+                                        verifyType="login"
+                                    ></verify-code-button>
                                 </span>
                             </el-form-item>
                         </template>
@@ -190,7 +194,7 @@ export default {
         },
         swtichVerifyType() {
             if (this.form.verifyType == "password") {
-                this.form.verifyType = "verifyCode";
+                this.form.verifyType = "code";
                 this.verifyTypeText = "密码登录";
             } else {
                 this.form.verifyType = "password";

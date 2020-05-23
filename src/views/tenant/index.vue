@@ -64,20 +64,26 @@
                             <template slot-scope="scope">{{ scope.row.contact }}</template>
                         </el-table-column>
                         <el-table-column label="联系电话" align="center" width="200">
-                            <template slot-scope="scope">{{ scope.row.contact_phone }}</template>
+                            <template slot-scope="scope">{{ scope.row.contactPhone }}</template>
                         </el-table-column>
                         <el-table-column label="联系地址" align="center">
-                            <template slot-scope="scope">{{ scope.row.contact_address }}</template>
+                            <template slot-scope="scope">{{ scope.row.contactAddress }}</template>
                         </el-table-column>
                         <el-table-column label="创建人" width="110" align="center">
                             <template slot-scope="scope">
-                                <span>{{ scope.row.creator }}</span>
+                                <span>{{ scope.row.createUser }}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column align="center" prop="created_at" label="创建时间" width="200">
+                        <el-table-column
+                            align="center"
+                            prop="created_at"
+                            label="创建时间"
+                            width="200"
+                            show-overflow-tooltip
+                        >
                             <template slot-scope="scope">
                                 <i class="el-icon-time" />
-                                <span>{{ scope.row.created_at }}</span>
+                                <span>{{ scope.row.createTime }}</span>
                             </template>
                         </el-table-column>
                         <el-table-column fixed="right" label="操作" width="100" align="center">

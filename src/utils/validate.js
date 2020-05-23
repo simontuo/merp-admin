@@ -7,7 +7,7 @@
  * @returns {Boolean}
  */
 export function isExternal(path) {
-	return /^(https?:|mailto:|tel:)/.test(path)
+    return /^(https?:|mailto:|tel:)/.test(path)
 }
 
 /**
@@ -15,8 +15,8 @@ export function isExternal(path) {
  * @returns {Boolean}
  */
 export function validUsername(str) {
-	const valid_map = ['admin', 'editor']
-	return valid_map.indexOf(str.trim()) >= 0
+    const valid_map = ['admin', 'editor']
+    return valid_map.indexOf(str.trim()) >= 0
 }
 
 /**
@@ -24,8 +24,17 @@ export function validUsername(str) {
  * @returns {Boolean}
  */
 export function phone(str) {
-	var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+    var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
 
-	return !myreg.test(str) ? false : true;
+    return !myreg.test(str) ? false : true;
 }
 
+/**
+ * @param {string} str
+ * @returns {Boolean}
+ */
+export function email(str) {
+    var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+
+    return !myreg.test(str) ? false : true;
+}

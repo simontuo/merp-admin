@@ -6,8 +6,8 @@
                     <info-card :info="tenant" />
                 </el-col>
                 <el-col :span="18" :xs="24">
-                    <el-card>
-                        <el-tabs v-model="activeTab">
+                    <el-card :body-style="{padding: 0}">
+                        <el-tabs v-model="activeTab" type="border-card">
                             <el-tab-pane label="详情信息" name="profile">
                                 <profile-form :form="tenant" v-if="activeTab === 'profile'" />
                             </el-tab-pane>
@@ -58,3 +58,9 @@ export default {
     }
 };
 </script>
+
+<style lang="scss" scoped>
+.el-tabs--border-card {
+    border: none;
+}
+</style>

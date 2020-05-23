@@ -6,13 +6,19 @@
                     :inline="inline"
                     size="small"
                     :label-width="labelWidth"
+                    ref="form"
                     label-position="left"
                 >
                     <slot name="queryItem"></slot>
                 </el-form>
                 <el-row v-if="!hidden">
                     <el-divider class="divider"></el-divider>
-                    <el-form :inline="inlineHidden" size="small" :label-width="labelWidthHidden">
+                    <el-form
+                        :inline="inlineHidden"
+                        size="small"
+                        :label-width="labelWidth"
+                        label-position="left"
+                    >
                         <slot name="hiddenQueryItem"></slot>
                     </el-form>
                 </el-row>
@@ -29,6 +35,8 @@
 </template>
 
 <script>
+import { getQuery } from "@/utils/search";
+
 export default {
     props: {
         labelWidth: {
@@ -50,10 +58,6 @@ export default {
         searchFunction: {
             type: Function,
             default: null
-        },
-        query: {
-            type: Object,
-            default: {}
         }
     },
     data() {
@@ -91,17 +95,23 @@ export default {
                 : "el-icon-arrow-up";
         },
         search(page = 1, pageSize = this.$store.state.pagination.pageSize) {
+            // 分页参数
             this.page = page;
+            // 获取搜索项目组件参数
+            let query = {};
+            query = getQuery(this.$parent.$parent.$parent.$refs);
+            query.pageSize = pageSize;
+            query.currentPage = page;
+            // 开启搜索加载
             this.$store.dispatch("search/loadingOn");
-            this.searchFunction({
-                page: page,
-                pageSize: pageSize,
-                query: this.query
-            })
+            // 执行搜索
+            this.searchFunction(query)
                 .then(response => {
+                    // 缓存搜索数据
                     this.$store.dispatch("search/getData", { response });
                 })
                 .finally(() => {
+                    // 关闭搜索加载
                     this.$store.dispatch("search/loadingOff");
                 });
         }

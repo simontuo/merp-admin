@@ -10,7 +10,7 @@ export function tenantUserList(params) {
 
 export function tenantPageList(params) {
     return request({
-        url: '/tenants',
+        url: '/dev/user-services/company/companysPage',
         method: 'get',
         params: params
     })
@@ -18,15 +18,15 @@ export function tenantPageList(params) {
 
 export function tenantStore(params) {
     return request({
-        url: '/tenants',
+        url: '/dev/user-services/company/newCompany',
         method: 'post',
-        params: params
+        params
     })
 }
 
 export function tenantProfile(params) {
     return request({
-        url: '/tenants/' + params.id,
+        url: '/dev/user-services/company/getCompany',
         method: 'get',
         params: params
     })

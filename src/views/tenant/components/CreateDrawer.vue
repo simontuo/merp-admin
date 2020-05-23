@@ -17,10 +17,10 @@
                             <el-input v-model="form.contact"></el-input>
                         </el-form-item>
                         <el-form-item label="联系电话" required>
-                            <el-input v-model="form.contact_phone"></el-input>
+                            <el-input v-model="form.contactPhone"></el-input>
                         </el-form-item>
                         <el-form-item label="联系地址" required>
-                            <el-input type="textarea" v-model="form.contact_address"></el-input>
+                            <el-input type="textarea" v-model="form.contactAddress"></el-input>
                         </el-form-item>
                         <el-form-item label="规模" required>
                             <el-input-number
@@ -32,7 +32,7 @@
                         </el-form-item>
                         <el-form-item label="管理员用户" required>
                             <el-select
-                                v-model="form.mamger_user_id"
+                                v-model="form.mamgerUserId"
                                 placeholder="请选择"
                                 class="drawer-form-item-width"
                                 filterable
@@ -54,14 +54,14 @@
                             <el-date-picker
                                 type="date"
                                 placeholder="选择日期"
-                                v-model="form.contract_start_at"
+                                v-model="form.contractStartAt"
                             ></el-date-picker>
                         </el-form-item>
                         <el-form-item label="合约结束日期" required>
                             <el-date-picker
                                 type="date"
                                 placeholder="选择日期"
-                                v-model="form.contract_end_at"
+                                v-model="form.contractEndAt"
                             ></el-date-picker>
                         </el-form-item>
                         <el-form-item label="启用" required>
@@ -100,12 +100,12 @@ export default {
             form: {
                 name: "",
                 contact: "",
-                contact_phone: "",
-                contact_address: "",
+                contactPhone: "",
+                contactAddress: "",
                 size: "",
-                mamger_user_id: "",
-                contract_start_at: "",
-                contract_end_at: "",
+                mamgerUserId: "",
+                contractStartAt: "",
+                contractEndAt: "",
                 enable: false
             }
         };

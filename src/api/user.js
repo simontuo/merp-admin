@@ -2,19 +2,16 @@ import request from '@/utils/request'
 
 export function login(data) {
     return request({
-        // url: '/vue-admin-template/user/login',
-        url: '/login',
+        url: '/dev/user-services/user/login',
         method: 'post',
         data
     })
 }
 
-export function getInfo(token) {
+export function getInfo(params) {
     return request({
-        // url: '/vue-admin-template/user/info',
-        url: '/users/info',
-        method: 'get',
-        params: { token }
+        url: '/dev/user-services/user/getUser/' + params.id,
+        method: 'get'
     })
 }
 
@@ -27,7 +24,7 @@ export function logout() {
 
 export function userPageList(query) {
     return request({
-        url: '/users',
+        url: '/dev/user-services/user/usersPage',
         method: 'get',
         params: query
     })
@@ -43,15 +40,16 @@ export function userList(query) {
 
 export function userStore(params) {
     return request({
-        url: '/users',
+        url: '/dev/user-services/user/newUser',
         method: 'post',
         params: params
     })
 }
 
+
 export function userProfile(params) {
     return request({
-        url: '/users/' + params.id,
+        url: '/dev/user-services/user/getUser/' + params.id,
         method: 'get',
         params: params
     })
@@ -59,17 +57,17 @@ export function userProfile(params) {
 
 export function userUpdate(params) {
     return request({
-        url: '/users/' + params.id,
+        url: '/dev/user-services/user/updateUser',
         method: 'put',
         params: params
     })
 }
 
-export function userBan(params) {
+export function userBtachBan(data) {
     return request({
-        url: '/users/ban',
+        url: '/dev/user-services/user/batchBan',
         method: 'put',
-        params: params
+        data
     })
 }
 
@@ -77,6 +75,14 @@ export function userResetPassword(params) {
     return request({
         url: '/users/reset_password',
         method: 'post',
+        params: params
+    })
+}
+
+export function userRemoteList(params) {
+    return request({
+        url: '/users/remote_list',
+        method: 'get',
         params: params
     })
 }

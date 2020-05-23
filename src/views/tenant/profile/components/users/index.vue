@@ -1,21 +1,16 @@
 <template>
     <div>
         <m-card type="search">
-            <search-form
-                ref="searchForm"
-                slot="body"
-                :searchFunction="searchFunction"
-                :query="query"
-            >
+            <search-form ref="searchForm" slot="body" :searchFunction="searchFunction">
                 <template slot="queryItem">
                     <el-form-item label="名称">
-                        <el-input v-model="query.name" placeholder="名称"></el-input>
+                        <select-remote :remoteFunction="userRemoteList" ref="name"></select-remote>
+                    </el-form-item>
+                    <el-form-item label="创建时间">
+                        <date ref="createdAt"></date>
                     </el-form-item>
                     <el-form-item label="手机">
-                        <el-select v-model="query.phone" placeholder="手机">
-                            <el-option label="区域一" value="shanghai"></el-option>
-                            <el-option label="区域二" value="beijing"></el-option>
-                        </el-select>
+                        <s-input ref="phone" placeholder="联系人"></s-input>
                     </el-form-item>
                 </template>
             </search-form>
@@ -30,33 +25,58 @@
                 <m-card type="table" class="mt-2">
                     <div slot="body">
                         <table-operate-bar title="用户数据"></table-operate-bar>
-                        <table-selected-bar selected="50" />
                         <m-table class="mt-1" ref="table">
                             <template slot="columns">
                                 <el-table-column align="center" type="selection" width="55"></el-table-column>
-                                <el-table-column align="center" label="ID" width="55">
-                                    <template slot-scope="scope">{{ scope.$index }}</template>
+                                <el-table-column align="center" label="#" width="55">
+                                    <template slot-scope="scope">{{ scope.$index + 1 }}</template>
                                 </el-table-column>
                                 <el-table-column label="名称" width="110">
-                                    <template slot-scope="scope">{{ scope.row.name }}</template>
+                                    <template slot-scope="scope">{{ scope.row.userName }}</template>
                                 </el-table-column>
                                 <el-table-column label="手机" width="200" align="center">
                                     <template slot-scope="scope">
                                         <span>{{ scope.row.phone }}</span>
                                     </template>
                                 </el-table-column>
-                                <el-table-column label="邮箱" align="center">
+                                <el-table-column label="邮箱" align="center" show-overflow-tooltip>
                                     <template slot-scope="scope">{{ scope.row.email }}</template>
+                                </el-table-column>
+                                <el-table-column
+                                    class-name="status-col"
+                                    label="状态"
+                                    width="110"
+                                    align="center"
+                                >
+                                    <template slot-scope="scope">
+                                        <el-tag v-if="scope.row.status === 1" type="warning">禁用</el-tag>
+                                        <el-tag v-else type="success">正常</el-tag>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                     align="center"
                                     prop="created_at"
                                     label="创建于"
                                     width="200"
+                                    show-overflow-tooltip
                                 >
                                     <template slot-scope="scope">
                                         <i class="el-icon-time" />
-                                        <span>{{ scope.row.created_at }}</span>
+                                        <span>{{ scope.row.createTime }}</span>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column
+                                    fixed="right"
+                                    label="操作"
+                                    width="100"
+                                    align="center"
+                                >
+                                    <template slot-scope="scope">
+                                        <el-button
+                                            type="text"
+                                            size="small"
+                                            @click="showProfile('用户详情', scope.row.id)"
+                                        >查看</el-button>
                                     </template>
                                 </el-table-column>
                             </template>
@@ -77,25 +97,23 @@ import MTable from "@/components/MTable";
 import SearchForm from "@/components/SearchForm";
 import MCard from "@/components/MCard";
 import DepartmemtTree from "./components/DeaprtmemtTree";
-import { userPageList } from "@/api/user";
+import { userPageList, userRemoteList } from "@/api/user";
+import { SelectRemote, SInput, Date } from "@/components/SearchItem";
 
 export default {
     components: {
         Pagination,
         TableOperateBar,
-        TableSelectedBar,
         MTable,
         SearchForm,
         MCard,
-        DepartmemtTree
+        DepartmemtTree,
+        SelectRemote,
+        SInput,
+        Date
     },
     data() {
-        return {
-            query: {
-                name: "",
-                phone: ""
-            }
-        };
+        return {};
     },
     computed: {
         searchFunction() {
@@ -103,6 +121,9 @@ export default {
         },
         selectedIds() {
             return this.$refs.table.selectedIds();
+        },
+        userRemoteList() {
+            return userRemoteList;
         }
     },
     methods: {}

@@ -1,105 +1,105 @@
 import Mock, { Random } from 'mockjs'
 
 export default [
-	{
-		url: '/admin_roles/[0-9]*',
-		type: 'get',
-		response: config => {
-			const { id } = config.query
-			const permissionIds = Random.range(11, 50, 1)
+    {
+        url: '/admin_roles/[0-9]*',
+        type: 'get',
+        response: config => {
+            const { id } = config.query
+            const permissionIds = Random.range(11, 50, 1)
 
-			const role = {
-				id: id,
-				name: 'admin',
-				label: "管理员",
-				desc: '超级无敌的神',
-				permissionIds: permissionIds,
-				bindIds: '@range(1, 10, 3)'
-			}
+            const role = {
+                id: id,
+                name: 'admin',
+                label: "管理员",
+                desc: '超级无敌的神',
+                permissionIds: permissionIds,
+                bindIds: '@range(1, 10, 3)'
+            }
 
-			return {
-				code: 20000,
-				data: role
-			}
+            return {
+                code: 200,
+                data: role
+            }
 
-		}
-	},
+        }
+    },
 
-	{
-		url: '/admin_roles/[0-9]*',
-		type: 'put',
-		response: config => {
-			return {
-				code: 20000,
-				message: "编辑成功"
-			}
-		}
-	},
+    {
+        url: '/admin_roles/[0-9]*',
+        type: 'put',
+        response: config => {
+            return {
+                code: 200,
+                message: "编辑成功"
+            }
+        }
+    },
 
-	{
-		url: '/admin_roles/[0-9]*/bind',
-		type: 'put',
-		response: config => {
-			return {
-				code: 20000,
-				message: "绑定成功"
-			}
-		}
-	},
+    {
+        url: '/admin_roles/[0-9]*/bind',
+        type: 'put',
+        response: config => {
+            return {
+                code: 200,
+                message: "绑定成功"
+            }
+        }
+    },
 
-	{
-		url: '/admin_roles/delete',
-		type: 'delete',
-		response: config => {
-			return {
-				code: 20000,
-				message: "删除成功"
-			}
+    {
+        url: '/admin_roles/delete',
+        type: 'delete',
+        response: config => {
+            return {
+                code: 200,
+                message: "删除成功"
+            }
 
-		}
-	},
+        }
+    },
 
-	{
-		url: '/admin_roles',
-		type: 'post',
-		response: config => {
-			return {
-				code: 20000,
-				message: "新增成功"
-			}
+    {
+        url: '/admin_roles',
+        type: 'post',
+        response: config => {
+            return {
+                code: 200,
+                message: "新增成功"
+            }
 
-		}
-	},
+        }
+    },
 
-	{
-		url: '/admin_roles',
-		type: 'get',
-		response: config => {
-			const { query, page = 1, pageSize = 20 } = config.query
+    {
+        url: '/admin_roles',
+        type: 'get',
+        response: config => {
+            const { query, page = 1, pageSize = 20 } = config.query
 
-			const list = Mock.mock({
-				'items|30': [
-					{
-						id: '@increment',
-						name: '@name',
-						label: '@cname',
-						created_at: '@datetime',
-					}
-				]
-			});
+            const list = Mock.mock({
+                'items|30': [
+                    {
+                        id: '@increment',
+                        name: '@name',
+                        label: '@cname',
+                        created_at: '@datetime',
+                    }
+                ]
+            });
 
-			let sortItems = list.items.reverse();
+            let sortItems = list.items.reverse();
 
-			const items = sortItems.filter((item, index) => index < pageSize * page && index >= pageSize * (page - 1));
+            const items = sortItems.filter((item, index) => index < pageSize * page && index >= pageSize * (page - 1));
 
-			return {
-				code: 20000,
-				data: {
-					total: list.items.length,
-					items: items
-				}
-			}
+            return {
+                code: 200,
+                data: {
+                    total: list.items.length,
+                    items: items
+                }
+            }
 
-		}
-	},
+        }
+    },
 ]
