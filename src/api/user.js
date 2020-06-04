@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function login(data) {
     return request({
-        url: '/dev/user-services/user/login',
+        url: '/dev/user-services/admin/adminUser/login',
         method: 'post',
         data
     })
@@ -10,7 +10,7 @@ export function login(data) {
 
 export function getInfo(params) {
     return request({
-        url: '/dev/user-services/user/getUser/' + params.id,
+        url: '/dev/user-services/admin/adminUser/getAdminUser/' + params.id,
         method: 'get'
     })
 }
@@ -24,7 +24,7 @@ export function logout() {
 
 export function userPageList(query) {
     return request({
-        url: '/dev/user-services/user/usersPage',
+        url: '/dev/user-services/admin/adminOperationUser/usersPage',
         method: 'get',
         params: query
     })
@@ -38,44 +38,44 @@ export function userList(query) {
     })
 }
 
-export function userStore(params) {
+export function userStore(data) {
     return request({
-        url: '/dev/user-services/user/newUser',
+        url: '/dev/user-services/admin/adminOperationUser/newUser',
         method: 'post',
-        params: params
+        data
     })
 }
 
 
 export function userProfile(params) {
     return request({
-        url: '/dev/user-services/user/getUser/' + params.id,
+        url: '/dev/user-services/admin/adminOperationUser/getUser/' + params.id,
         method: 'get',
         params: params
     })
 }
 
-export function userUpdate(params) {
+export function userUpdate(data) {
     return request({
-        url: '/dev/user-services/user/updateUser',
-        method: 'put',
-        params: params
-    })
-}
-
-export function userBtachBan(data) {
-    return request({
-        url: '/dev/user-services/user/batchBan',
+        url: '/dev/user-services/admin/adminOperationUser/updateUser',
         method: 'put',
         data
     })
 }
 
-export function userResetPassword(params) {
+export function userBtachBan(data) {
+    return request({
+        url: '/dev/user-services/admin/adminOperationUser/batchBan',
+        method: 'put',
+        data
+    })
+}
+
+export function userResetPassword(data) {
     return request({
         url: '/users/reset_password',
         method: 'post',
-        params: params
+        data
     })
 }
 

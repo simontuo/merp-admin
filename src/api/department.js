@@ -2,39 +2,39 @@ import request from '@/utils/request'
 
 export function departmentProfile(params) {
     return request({
-        url: '/departments/' + params.id,
+        url: '/dev/user-services/admin/adminOperationDepartment/getDepartment' + params.id,
         method: 'get',
         params: params
     })
 }
 
-export function departmentUpdate(params) {
+export function departmentUpdate(data) {
     return request({
-        url: '/departments/' + params.id,
+        url: '/dev/user-services/department/updateDepartment',
         method: 'put',
-        params: params
+        data
     })
 }
 
-export function departmentDelete(params) {
+export function departmentBatchBan(data) {
     return request({
-        url: '/departments/' + params.id,
-        method: 'delete',
-        params: params
+        url: '/dev/user-services/admin/adminOperationDepartment/updateStatusDepartment ',
+        method: 'put',
+        data
     })
 }
 
-export function departmentStore(params) {
+export function departmentStore(data) {
     return request({
-        url: '/departments',
+        url: '/dev/user-services/admin/adminOperationDepartment/newDepartment',
         method: 'post',
-        params: params
+        data
     })
 }
 
 export function departmentList(params) {
     return request({
-        url: '/dev/user-services/department/departmentsPage',
+        url: '/dev/user-services/admin/adminOperationDepartment/departmentsPage ',
         method: 'get',
         params: params
     })

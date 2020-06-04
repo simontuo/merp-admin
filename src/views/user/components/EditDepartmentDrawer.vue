@@ -3,12 +3,19 @@
         <template slot="content">
             <m-drawer-body v-loading="loading">
                 <div slot="body" class="body">
-                    <el-form ref="form" :model="form" label-width="60px" size="small">
-                        <el-form-item label="名称">
+                    <el-form
+                        ref="form"
+                        :model="form"
+                        :rules="rules"
+                        label-width="80px"
+                        size="small"
+                        label-position="left"
+                    >
+                        <el-form-item label="名称" required prop="name">
                             <el-input v-model="form.name"></el-input>
                         </el-form-item>
-                        <el-form-item label="助记码">
-                            <el-input v-model="form.mnemonic_code"></el-input>
+                        <el-form-item label="助记码" required prop="mnemonicCode">
+                            <el-input v-model="form.mnemonicCode"></el-input>
                         </el-form-item>
                     </el-form>
                 </div>
@@ -42,7 +49,21 @@ export default {
             form: {
                 id: "",
                 name: "",
-                mnemonic_code: ""
+                mnemonicCode: ""
+            },
+            rules: {
+                name: [
+                    {
+                        required: true,
+                        trigger: "blur",
+                        message: "名称不能为空"
+                    }
+                ],
+                mnemonicCode: {
+                    required: true,
+                    trigger: "blur",
+                    message: "助记码不能为空"
+                }
             }
         };
     },
@@ -53,13 +74,24 @@ export default {
             this.loading = true;
             departmentProfile({ id: this.id })
                 .then(response => {
-                    this.form = response.data;
+                    let { data } = response;
+                    this.form.id = data.id;
+                    this.form.name = data.name;
+                    this.form.mnemonicCode = data.mnemonicCode;
                 })
                 .finally(() => {
                     this.loading = false;
                 });
         },
         submit() {
+            this.$refs.form.validate(valid => {
+                if (!valid) {
+                    return false;
+                }
+                this.update();
+            });
+        },
+        update() {
             this.loading = true;
             departmentUpdate(this.form)
                 .then(response => {

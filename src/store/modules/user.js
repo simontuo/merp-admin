@@ -53,8 +53,8 @@ const actions = {
                 const { data } = response
                 commit('SET_TOKEN', data.token)
                 setToken(data.token)
-                commit('SET_ID', data.userId)
-                setLoginedUserId(data.userId)
+                commit('SET_ID', data.adminUserId)
+                setLoginedUserId(data.adminUserId)
                 resolve()
             }).catch(error => {
                 reject(error)

@@ -9,7 +9,15 @@
         <breadcrumb class="breadcrumb-container" />
 
         <div class="right-menu">
-            <template></template>
+            <template>
+                <el-button
+                    type="text"
+                    class="right-menu-item hover-effect"
+                    style="margin-left: 0px;"
+                >
+                    <screenfull />
+                </el-button>
+            </template>
 
             <el-dropdown class="avatar-container" trigger="click">
                 <div class="avatar-wrapper">
@@ -34,11 +42,13 @@
 import { mapGetters } from "vuex";
 import Breadcrumb from "@/components/Breadcrumb";
 import Hamburger from "@/components/Hamburger";
+import Screenfull from "@/components/Screenfull";
 
 export default {
     components: {
         Breadcrumb,
-        Hamburger
+        Hamburger,
+        Screenfull
     },
     computed: {
         ...mapGetters(["sidebar", "avatar"])

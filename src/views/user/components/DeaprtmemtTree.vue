@@ -2,6 +2,7 @@
     <div class="department">
         <el-input placeholder="输入关键字进行过滤" v-model="filterText"></el-input>
         <el-tree
+            v-loading="loading"
             ref="tree"
             class="tree"
             :data="list"
@@ -12,7 +13,7 @@
             :filter-node-method="filterNode"
         >
             <span class="custom-tree-node" slot-scope="{ node }">
-                <span>{{ node.label }}</span>
+                <span :class="node.disabled ? 'disabled' : ''">{{ node.label }}</span>
                 <span>
                     <el-dropdown class="operate-dropdown" trigger="click" @command="handleCommand">
                         <el-button type="text" class="operate-button">
@@ -20,8 +21,9 @@
                         </el-button>
                         <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item command="create">新增</el-dropdown-item>
-                            <el-dropdown-item :command="'edit-' + node.id">编辑</el-dropdown-item>
-                            <el-dropdown-item :command="'delete-' + node.id">删除</el-dropdown-item>
+                            <el-dropdown-item :command="'edit-' + node.key">编辑</el-dropdown-item>
+                            <el-dropdown-item :command="'ban-' + node.key">禁用</el-dropdown-item>
+                            <el-dropdown-item :command="'enable-' + node.key">启用</el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
                 </span>
@@ -33,7 +35,7 @@
 </template>
 
 <script>
-import { departmentList, departmentDelete } from "@/api/department";
+import { departmentList, departmentBatchBan } from "@/api/department";
 import CreateDepartmentDrawer from "./CreateDepartmentDrawer";
 import EditDepartmentDrawer from "./EditDepartmentDrawer";
 
@@ -45,7 +47,8 @@ export default {
     data() {
         return {
             list: [],
-            filterText: ""
+            filterText: "",
+            loading: false
         };
     },
     mounted() {
@@ -63,13 +66,27 @@ export default {
     },
     methods: {
         fetchData() {
-            departmentList().then(response => {
-                this.list = response.data.items;
-            });
+            this.list = [];
+            this.loading = true;
+            departmentList()
+                .then(response => {
+                    for (let index in response.data.items) {
+                        let item = response.data.items[index];
+                        this.list.push({
+                            id: item.id,
+                            label: item.name,
+                            children: [],
+                            disabled: item.status === 0 ? false : true
+                        });
+                    }
+                })
+                .finally(() => {
+                    this.loading = false;
+                });
         },
         filterNode(value, data) {
             if (!value) return true;
-            return data.label.indexOf(value) !== -1;
+            return data.name.indexOf(value) !== -1;
         },
         handleCommand(command) {
             let commandArr = command.split("-");
@@ -80,8 +97,11 @@ export default {
                 case "edit":
                     this.edit(commandArr[1]);
                     break;
-                case "delete":
-                    this.delete(commandArr[1]);
+                case "ban":
+                    this.banOrEnable(commandArr[1], "ban");
+                    break;
+                case "enable":
+                    this.banOrEnable(commandArr[1], "enable");
                     break;
                 default:
                     this.$message.error("不存在的操作");
@@ -95,21 +115,29 @@ export default {
             this.$refs.editDepartmentDrawer.id = id;
             this.$refs.editDepartmentDrawer.show("部门编辑");
         },
-        delete(id) {
+        banOrEnable(id, type) {
             let that = this;
-            this.$confirm("此操作将永久删除该部门, 是否继续?", "提示", {
-                confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                type: "warning"
-            })
+            let action = type === "ban" ? "禁用" : "启用";
+            this.$confirm(
+                "此操作将永久" + action + "该部门, 是否继续?",
+                "提示",
+                {
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消",
+                    type: "warning"
+                }
+            )
                 .then(() => {
-                    departmentDelete({ id: id }).then(response => {
+                    departmentBatchBan({
+                        ids: "[" + id + "]",
+                        type: type
+                    }).then(response => {
                         that.$message.success(response.message);
                         that.fetchData();
                     });
                 })
                 .catch(() => {
-                    this.$message.info("已取消删除");
+                    this.$message.info("已取消" + action);
                 });
         }
     }
@@ -142,5 +170,9 @@ export default {
 
 .el-tree >>> .el-tree-node__content {
     height: 35px;
+}
+
+.disabled {
+    color: #909399;
 }
 </style>

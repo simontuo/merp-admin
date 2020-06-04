@@ -53,6 +53,7 @@
                         <el-form-item label="合约开始日期" required>
                             <el-date-picker
                                 type="date"
+                                value-format="yyyy-MM-dd"
                                 placeholder="选择日期"
                                 v-model="form.contractStartAt"
                             ></el-date-picker>
@@ -60,6 +61,7 @@
                         <el-form-item label="合约结束日期" required>
                             <el-date-picker
                                 type="date"
+                                value-format="yyyy-MM-dd"
                                 placeholder="选择日期"
                                 v-model="form.contractEndAt"
                             ></el-date-picker>

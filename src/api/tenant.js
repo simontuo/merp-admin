@@ -10,32 +10,32 @@ export function tenantUserList(params) {
 
 export function tenantPageList(params) {
     return request({
-        url: '/dev/user-services/company/companysPage',
+        url: '/dev/user-services/admin/company/companysPage',
         method: 'get',
         params: params
     })
 }
 
-export function tenantStore(params) {
+export function tenantStore(data) {
     return request({
-        url: '/dev/user-services/company/newCompany',
+        url: '/dev/user-services/admin/company/newCompany',
         method: 'post',
-        params
+        data
     })
 }
 
 export function tenantProfile(params) {
     return request({
-        url: '/dev/user-services/company/getCompany',
+        url: '/dev/user-services/admin/company/getCompany/' + params.id,
         method: 'get',
         params: params
     })
 }
 
-export function tenantUpdate(params) {
+export function tenantUpdate(data) {
     return request({
-        url: '/tenants/' + params.id,
+        url: '/dev/user-services/admin/company/updateCompany',
         method: 'put',
-        params: params
+        data
     })
 }

@@ -10,16 +10,16 @@
             <el-input v-model.trim="form.name" />
         </el-form-item>
         <el-form-item label="助记码" required>
-            <el-input v-model.trim="form.mnemonic_code" />
+            <el-input v-model.trim="form.mnemonicCode" />
         </el-form-item>
         <el-form-item label="联系人" required>
             <el-input v-model.trim="form.contact" />
         </el-form-item>
         <el-form-item label="联系电话" required>
-            <el-input v-model.trim="form.contact_phone" />
+            <el-input v-model.trim="form.contactPhone" />
         </el-form-item>
         <el-form-item label="联系地址" required>
-            <el-input v-model.trim="form.contact_address" />
+            <el-input v-model.trim="form.contactAddress" />
         </el-form-item>
         <el-form-item label="规模" required>
             <el-input-number
@@ -31,7 +31,7 @@
         </el-form-item>
         <el-form-item label="管理员用户" required>
             <el-select
-                v-model="form.mamger_user_id"
+                v-model="form.mamgerUserId"
                 placeholder="请选择"
                 class="drawer-form-item-width"
                 filterable
@@ -43,10 +43,20 @@
             </el-select>
         </el-form-item>
         <el-form-item label="合约开始日期" required>
-            <el-date-picker type="date" placeholder="选择日期" v-model="form.contract_start_at"></el-date-picker>
+            <el-date-picker
+                type="date"
+                value-format="yyyy-MM-dd"
+                placeholder="选择日期"
+                v-model="form.contractStartAt"
+            ></el-date-picker>
         </el-form-item>
         <el-form-item label="合约结束日期" required>
-            <el-date-picker type="date" placeholder="选择日期" v-model="form.contract_end_at"></el-date-picker>
+            <el-date-picker
+                type="date"
+                value-format="yyyy-MM-dd"
+                placeholder="选择日期"
+                v-model="form.contractEndAt"
+            ></el-date-picker>
         </el-form-item>
         <el-form-item label="启用" required>
             <el-switch v-model="form.enable"></el-switch>
